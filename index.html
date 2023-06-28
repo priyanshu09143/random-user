@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise</title>
+    <style>
+        body{
+            text-align: center;
+        }
+        .container{
+            width: 35%;
+            margin:auto;
+            margin-top:30vh;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+
+    </div>
+    <button>Email</button>
+    <button>Age</button>
+    <button>Phone</button>
+    <script>
+        let email = document.querySelectorAll("button")[0]
+        let age = document.querySelectorAll("button")[1]
+        let phone = document.querySelectorAll("button")[2]
+       fetch("https://randomuser.me/api/")
+        .then((photo)=>{return photo.json()})
+        .then((result)=>{console.log(result);
+            RanImg(result)})
+         
+
+        function RanImg(params){
+            let image = document.createElement("img")
+            image.src =params.results[0].picture.large;
+            document.querySelector(".container").appendChild(image);
+            let names = document.createElement("h2")
+            names.innerText = params.results[0].name.first +" "+params.results[0].name.last;
+            document.querySelector(".container").appendChild(names);
+
+            let other = document.createElement("h3");
+            email.onclick = ()=>{
+                other.innerHTML =""
+                other.innerHTML =params.results[0].email
+                document.querySelector(".container").appendChild(other);
+            }
+            age.onclick = ()=>{
+                other.innerHTML =""
+                other.innerHTML =params.results[0].dob.age
+                document.querySelector(".container").appendChild(other);
+            }
+            phone.onclick = ()=>{
+                other.innerHTML =""
+                other.innerHTML =params.results[0].phone
+                document.querySelector(".container").appendChild(other);
+            }
+        }
+
+
+    </script>
+</body>
+</html>
